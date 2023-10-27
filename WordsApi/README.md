@@ -1,0 +1,1 @@
+This API generates random strings in different lengths between properties configured min & max.  

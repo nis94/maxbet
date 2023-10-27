@@ -1,0 +1,13 @@
+version: '2'
+services:
+  dictionary-worker:
+    build:
+      dockerfile: Dockerfile
+    image: dictionary-worker:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge

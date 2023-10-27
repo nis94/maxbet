@@ -1,0 +1,3 @@
+FROM openjdk:17.0.2-jdk
+COPY target/algo-sorter.jar /algo-sorter.jar
+ENTRYPOINT ["java","-jar","/algo-sorter.jar"]
