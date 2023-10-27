@@ -6,18 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Instant;
-import java.util.Objects;
-
 
 @SpringBootApplication
 @Slf4j
-@EnableCaching
 public class AlgoSorterApplication {
     private final WordRepository wordRepository;
     private final RestTemplate restTemplate;
