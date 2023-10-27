@@ -1,7 +1,7 @@
-package com.maxback.algosorter.listeners;
+package com.maxback.common.listeners;
 
-import com.maxback.algosorter.model.DictionaryEntry;
-import com.maxback.algosorter.service.ClassifyingService;
+import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.service.ClassifyingService;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

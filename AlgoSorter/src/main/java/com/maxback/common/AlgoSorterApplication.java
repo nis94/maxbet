@@ -1,7 +1,7 @@
-package com.maxback.algosorter;
+package com.maxback.common;
 
-import com.maxback.algosorter.model.WordPojo;
-import com.maxback.algosorter.repository.WordRepository;
+import com.maxback.common.model.WordPojo;
+import com.maxback.common.repository.WordRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

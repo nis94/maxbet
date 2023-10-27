@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <groupId>com.maxback</groupId>
-    <artifactId>maxback</artifactId>
+    <artifactId>maxbet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>maxback</name>
     <description>maxback app</description>
@@ -20,6 +20,11 @@
         <module>WordsApi</module>
         <module>DictionaryWorker</module>
         <module>AlgoSorter</module>
+        <module>Common</module>
     </modules>
+
+    <dependencyManagement>
+
+    </dependencyManagement>
 
 </project>

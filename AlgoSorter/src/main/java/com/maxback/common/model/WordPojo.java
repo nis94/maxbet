@@ -1,4 +1,4 @@
-package com.maxback.algosorter.model;
+package com.maxback.common.model;
 
 //TODO - make it common!
 

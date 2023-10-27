@@ -1,4 +1,4 @@
-package com.maxback.algosorter.model;
+package com.maxback.common.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +15,3 @@ public class DictionaryEntry implements Serializable {
     private String definition;
     private long creationDate;
 }
-
-//TODO - make it common!

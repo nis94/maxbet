@@ -1,6 +1,6 @@
-package com.maxback.algosorter.repository;
+package com.maxback.common.repository;
 
-import com.maxback.algosorter.model.WordPojo;
+import com.maxback.common.model.WordPojo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,10 @@
-package com.maxback.algosorter.service;
+package com.maxback.common.service;
 
-import com.maxback.algosorter.model.DictionaryEntry;
-import com.maxback.algosorter.model.WordPojo;
-import com.maxback.algosorter.repository.WordRepository;
+import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.WordPojo;
+import com.maxback.common.repository.WordRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
