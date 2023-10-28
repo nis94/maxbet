@@ -1,6 +1,6 @@
 package com.maxback.dictionaryworker;
 
-import com.maxback.dictionaryworker.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryEntry;
 import com.maxback.dictionaryworker.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -8,23 +8,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.awaitility.Awaitility.await;
-import static org.awaitility.Durations.ONE_MINUTE;
 import static org.mockito.Mockito.mock;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // TODO - WHAT IS THAT & WHY - "NONE" ?
-@Testcontainers
 class DictionaryWorkerApplicationTests {
 
     private RestTemplate restTemplate;

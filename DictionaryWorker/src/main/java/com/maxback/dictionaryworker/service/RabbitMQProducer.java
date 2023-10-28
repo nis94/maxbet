@@ -1,6 +1,6 @@
 package com.maxback.dictionaryworker.service;
 
-import com.maxback.dictionaryworker.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryEntry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
