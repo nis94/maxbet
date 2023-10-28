@@ -1,6 +1,6 @@
 package com.maxback.common.listeners;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
 import com.maxback.common.service.ClassifyingService;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -23,7 +23,7 @@ public class RabbitMQListener {
     @RabbitListener(queues = "${rabbitmq.queue.name}")
     public void consume(String entry) throws IOException {
         log.debug(String.format("Got message -> \"%s\"", entry));
-        DictionaryEntry dictionaryEntry = MAPPER.readValue(entry, DictionaryEntry.class);
-        classifyingService.analyzeWord(dictionaryEntry);
+        DictionaryWordData dictionaryWordData = MAPPER.readValue(entry, DictionaryWordData.class);
+        classifyingService.analyzeWord(dictionaryWordData);
     }
 }

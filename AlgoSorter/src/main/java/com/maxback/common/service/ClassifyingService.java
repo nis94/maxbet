@@ -1,6 +1,6 @@
 package com.maxback.common.service;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
 import com.maxback.common.model.WordPojo;
 import com.maxback.common.repository.WordRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class ClassifyingService {
 
     }
 
-    public void analyzeWord(DictionaryEntry entry) {
+    public void analyzeWord(DictionaryWordData entry) {
         String newWord = entry.getWord();
         int newWordLength = newWord.length();
         WordPojo wordFromDb = wordRepository.findByLength(newWordLength);

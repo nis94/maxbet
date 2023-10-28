@@ -1,18 +1,13 @@
 package com.maxback.common;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
 import com.maxback.common.model.WordPojo;
 import com.maxback.common.repository.WordRepository;
 import com.maxback.common.service.ClassifyingService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import static org.mockito.Mockito.mock;
@@ -31,7 +26,7 @@ class AlgoSorterApplicationTest {
         ClassifyingService classifyingService = new ClassifyingService(wordRepository, restTemplate);
 
         // Act
-        classifyingService.analyzeWord(new DictionaryEntry("word", "definition", 12345L));
+        classifyingService.analyzeWord(new DictionaryWordData("word", "definition", 12345L));
 
         // Assert
         WordPojo wordFromDb = wordRepository.findByLength(4);
@@ -51,7 +46,7 @@ class AlgoSorterApplicationTest {
         ClassifyingService classifyingService = new ClassifyingService(wordRepository, restTemplate);
 
         // Act
-        classifyingService.analyzeWord(new DictionaryEntry("test", "test", 11111L));
+        classifyingService.analyzeWord(new DictionaryWordData("test", "test", 11111L));
 
         // Assert
         WordPojo wordFromDb = wordRepository.findByLength(4);

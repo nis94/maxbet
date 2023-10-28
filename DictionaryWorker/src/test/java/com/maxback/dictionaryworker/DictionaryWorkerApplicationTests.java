@@ -1,6 +1,6 @@
 package com.maxback.dictionaryworker;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
 import com.maxback.dictionaryworker.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -38,7 +38,7 @@ class DictionaryWorkerApplicationTests {
         Mockito.when(restTemplate.getForEntity(DICTIONARY_URL + testWord, String.class))
                 .thenReturn(new ResponseEntity<>(TEST_DEFINITION, HttpStatus.OK));
         //Act
-        DictionaryEntry wordObj = dictionaryService.getDictionaryObject(testWord);
+        DictionaryWordData wordObj = dictionaryService.getDictionaryWordData(testWord);
 
         //Assert
         Assertions.assertEquals(testWord, wordObj.getWord());
@@ -57,7 +57,7 @@ class DictionaryWorkerApplicationTests {
         Mockito.when(restTemplate.getForEntity(DICTIONARY_URL + testWord, String.class))
                 .thenThrow(HttpClientErrorException.NotFound.class);
         //Act
-        DictionaryEntry wordObj = dictionaryService.getDictionaryObject(testWord);
+        DictionaryWordData wordObj = dictionaryService.getDictionaryWordData(testWord);
 
         //Assert
         Assertions.assertNull(wordObj);
@@ -76,7 +76,7 @@ class DictionaryWorkerApplicationTests {
                 .thenThrow(HttpClientErrorException.TooManyRequests.class);
 
         //Act
-        DictionaryEntry wordObj = dictionaryService.getDictionaryObject(testWord);
+        DictionaryWordData wordObj = dictionaryService.getDictionaryWordData(testWord);
 
         //Assert
         Assertions.assertNull(wordObj);

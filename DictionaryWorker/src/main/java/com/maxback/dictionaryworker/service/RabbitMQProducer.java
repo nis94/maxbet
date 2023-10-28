@@ -1,6 +1,6 @@
 package com.maxback.dictionaryworker.service;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +22,8 @@ public class RabbitMQProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(DictionaryEntry dictionaryEntry){
-        log.info(String.format("Message sent -> %s", dictionaryEntry));
-        rabbitTemplate.convertAndSend(exchange, routingKey, dictionaryEntry);
+    public void sendMessage(DictionaryWordData dictionaryWordData){
+        log.info(String.format("Message sent -> %s", dictionaryWordData));
+        rabbitTemplate.convertAndSend(exchange, routingKey, dictionaryWordData);
     }
 }

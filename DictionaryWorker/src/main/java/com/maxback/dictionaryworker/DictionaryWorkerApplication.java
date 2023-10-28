@@ -1,6 +1,7 @@
 package com.maxback.dictionaryworker;
 
-import com.maxback.common.model.DictionaryEntry;
+import com.maxback.common.model.DictionaryWordData;
+import com.maxback.common.model.PokemonData;
 import com.maxback.dictionaryworker.service.DictionaryService;
 import com.maxback.dictionaryworker.service.RabbitMQProducer;
 import com.maxback.dictionaryworker.service.WordService;
@@ -37,10 +38,12 @@ public class DictionaryWorkerApplication {
     @Scheduled(fixedRateString = "${scheduled.fixed.rate}")
     public void run() {
             String word = wordService.fetchRandomWordFromApi();
-            DictionaryEntry dictionaryEntry = dictionaryService.getDictionaryObject(word);
+            DictionaryWordData dictionaryWordData = dictionaryService.getDictionaryWordData(word);
+            PokemonData pokemonData = dictionaryService.getPokemonData(word);
+            log.info("Pokemon name: " + word + " from type: " + pokemonData.getTypes().get(0));
 
-            if (dictionaryEntry != null) {
-                rabbitProducer.sendMessage(dictionaryEntry);
+            if (dictionaryWordData != null) {
+                rabbitProducer.sendMessage(dictionaryWordData);
             }
     }
 
