@@ -10,6 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.partitioningBy;
+
 
 @SpringBootApplication
 @Slf4j
@@ -30,25 +36,17 @@ public class AlgoSorterApplication {
     }
 
     // second, minute, hour, day of month, month, day(s) of week
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void run() {
-        log.info("run function started...");
-        int length = 1;
-        int maxLength = 1;
-        ResponseEntity<String> response =
-                restTemplate.getForEntity(dictApiUrl, String.class);
+        log.info("listing all words: ");
+        List<WordPojo> wordFromDb = this.wordRepository.findAll();
+        wordFromDb.stream()
+                .map(WordPojo::getWord)
+                .sorted()
+                .forEach(System.out::println);
 
-        if(response.getBody() != null) {
-            maxLength = Integer.parseInt(response.getBody());
-        }
-
-        while (length < maxLength) {
-            WordPojo wordFromDb = this.wordRepository.findByLength(length);
-            if (wordFromDb != null) {
-                log.info("Word in Length " + length + " = \"" + wordFromDb + "\"");
-            }
-            length++;
-        }
+        log.info("initialize word length...");
+        restTemplate.postForEntity(dictApiUrl + "/3", null, String.class);
     }
 
 }

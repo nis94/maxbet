@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WordRepository extends JpaRepository<WordPojo,String> {
 
-    WordPojo findByLength(int length);
+    WordPojo findByWord(String word);
 
 }

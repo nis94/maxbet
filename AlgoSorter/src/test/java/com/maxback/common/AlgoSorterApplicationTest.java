@@ -29,32 +29,34 @@ class AlgoSorterApplicationTest {
         classifyingService.analyzeWord(new DictionaryWordData("word", "definition", 12345L));
 
         // Assert
-        WordPojo wordFromDb = wordRepository.findByLength(4);
+        WordPojo wordFromDb = wordRepository.findByWord("word");
 
         Assertions.assertNotNull(wordFromDb);
         Assertions.assertEquals("word", wordFromDb.getWord());
         Assertions.assertEquals("definition", wordFromDb.getDefinition());
         Assertions.assertEquals(12345L, wordFromDb.getCreationDate());
+        Assertions.assertEquals(1L, wordFromDb.getCounter());
 
     }
 
     @Test
     void whenExistingWord_thenSave(){
         // Arrange
-        wordRepository.save(new WordPojo(4, "word", "definition", 12345L));
+        wordRepository.save(new WordPojo("word", "definition", 12345L));
         RestTemplate restTemplate = mock(RestTemplate.class);
         ClassifyingService classifyingService = new ClassifyingService(wordRepository, restTemplate);
 
         // Act
-        classifyingService.analyzeWord(new DictionaryWordData("test", "test", 11111L));
+        classifyingService.analyzeWord(new DictionaryWordData("word", "definition", 222222L));
 
         // Assert
-        WordPojo wordFromDb = wordRepository.findByLength(4);
+        WordPojo wordFromDb = wordRepository.findByWord("word");
 
         Assertions.assertNotNull(wordFromDb);
         Assertions.assertEquals("word", wordFromDb.getWord());
         Assertions.assertEquals("definition", wordFromDb.getDefinition());
         Assertions.assertEquals(12345L, wordFromDb.getCreationDate());
+        Assertions.assertEquals(2L, wordFromDb.getCounter());
     }
 
 }

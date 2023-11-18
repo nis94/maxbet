@@ -1,7 +1,6 @@
 package com.maxback.dictionaryworker.service;
 
 import com.maxback.common.model.DictionaryWordData;
-import com.maxback.common.model.PokemonData;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,8 +11,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -54,35 +51,6 @@ public class DictionaryService {
         }
 
         return definition;
-    }
-
-
-    public PokemonData getPokemonData(String word) {
-        PokemonData pokemonData = null;
-
-        try {
-            ResponseEntity<String> response =
-                    restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon/" + word, String.class);
-
-            JSONObject responseJson = new JSONObject(response.getBody());
-            JSONArray typesJson = responseJson.getJSONArray("types");
-            String hight = responseJson.getString("height");
-            String weight = responseJson.getString("weight");
-            List<String> types = new ArrayList<>();
-            typesJson.forEach( t -> {
-                String type = (((JSONObject)t).getJSONObject("type")).getString("name");
-                types.add(type);
-            });
-            pokemonData = new PokemonData(word, types, Integer.parseInt(hight), Integer.parseInt(weight), Instant.now().toEpochMilli() );
-        } catch (HttpClientErrorException.TooManyRequests e) {
-            log.warn("Too many requests - will be sent to retry queue");
-        }catch (HttpClientErrorException.NotFound e) {
-            log.debug("Couldn't find \"" + word + "\" in dictionary");
-        } catch (JSONException e) {
-            log.error("Failed to parse response JSON", e);
-        }
-
-        return pokemonData;
     }
 
 }

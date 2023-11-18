@@ -27,18 +27,19 @@ public class ClassifyingService {
 
     public void analyzeWord(DictionaryWordData entry) {
         String newWord = entry.getWord();
-        int newWordLength = newWord.length();
-        WordPojo wordFromDb = wordRepository.findByLength(newWordLength);
+        WordPojo wordFromDb = wordRepository.findByWord(newWord);
         if (wordFromDb != null) {
-            log.info("Word with length " + newWordLength + " already exist -> \"" + wordFromDb.getWord() + "\"");
+            log.info("\""+ newWord + "\" already exist, updating counter");
+            wordRepository.save(new WordPojo(wordFromDb));
         } else {
             wordRepository.save(
-                    new WordPojo(newWordLength, newWord, entry.getDefinition(), entry.getCreationDate())
+                    new WordPojo(newWord, entry.getDefinition(), entry.getCreationDate())
             );
-            log.info("Saved new word -> \"" + newWord + "\" (length = " + newWordLength + ")");
+            log.info("Saved new word -> \"" + newWord + "\"");
         }
-        restTemplate.postForEntity(dictApiUrl + "/" + (newWordLength + 1), null, String.class);
-        log.info("Sent new length to dictionary service: " + (newWordLength + 1));
+        int newLength = newWord.length() + 1;
+        restTemplate.postForEntity(dictApiUrl + "/" + newLength, null, String.class);
+        log.info("Sent new length to dictionary service: " + newLength);
     }
 
 }
