@@ -6,15 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.partitioningBy;
 
 
 @SpringBootApplication
@@ -41,9 +36,8 @@ public class AlgoSorterApplication {
         log.info("listing all words: ");
         List<WordPojo> wordFromDb = this.wordRepository.findAll();
         wordFromDb.stream()
-                .map(WordPojo::getWord)
-                .sorted()
-                .forEach(System.out::println);
+                .sorted((w1, w2) -> w2.getWord().compareTo(w1.getWord()))
+                .forEach(w -> System.out.println(w.getWord() + " x " + w.getCounter()));
 
         log.info("initialize word length...");
         restTemplate.postForEntity(dictApiUrl + "/3", null, String.class);
