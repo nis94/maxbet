@@ -59,7 +59,4 @@ class AlgoSorterApplicationTest {
         Assertions.assertEquals(2L, wordFromDb.getCounter());
     }
 
-    // TODO: TOO LONG DEFINITION:
-    //{"word":"taco","definition":"A Mexican snack food; a small tortilla (soft or hard shelled), with typically some type of meat, rice, beans, cheese, diced vegetables (usually tomatoes and lettuce, as served in the United States, and cilantro, onion, and avocado, as served in México) and salsa.","creationDate":1700928480706}
-
 }

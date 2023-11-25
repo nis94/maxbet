@@ -26,5 +26,4 @@ public class RabbitMQProducer {
         log.info(String.format("Message sent -> %s", dictionaryWordData));
         rabbitTemplate.convertAndSend(exchange, routingKey, dictionaryWordData);
     }
-
 }
