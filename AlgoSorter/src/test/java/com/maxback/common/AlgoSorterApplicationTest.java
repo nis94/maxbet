@@ -61,5 +61,5 @@ class AlgoSorterApplicationTest {
 
     // TODO: TOO LONG DEFINITION:
     //{"word":"taco","definition":"A Mexican snack food; a small tortilla (soft or hard shelled), with typically some type of meat, rice, beans, cheese, diced vegetables (usually tomatoes and lettuce, as served in the United States, and cilantro, onion, and avocado, as served in México) and salsa.","creationDate":1700928480706}
-
+    //{"word":"jay","definition":"Any one of the numerous species of birds belonging to several genera within the family Corvidae, including Garrulus, Cyanocitta, Aphelocoma, Perisoreus, Cyanocorax, Gymnorhinus, Cyanolyca, Ptilostomus, and Calocitta, allied to the crows, but smaller, more graceful in form, often handsomely coloured, usually having a crest, and often noisy.","creationDate":1700986204026}
 }
