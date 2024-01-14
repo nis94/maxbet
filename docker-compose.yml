@@ -8,9 +8,6 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    networks:
-      - maxbet
-      
   db:
     image: mysql:8.0
     restart: always
@@ -23,8 +20,25 @@ services:
       MYSQL_ROOT_PASSWORD: 111111
     volumes:
       - /var/lib/mysql
-    networks:
-      - maxbet
+  prometheus:
+    image: prom/prometheus:v2.37.9
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command: "--config.file=/etc/prometheus/prometheus.yaml"
+    volumes:
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - ./prometheus:/prometheus
+    restart: unless-stopped
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+
   words-api:
     build:
       dockerfile: WordsApi/Dockerfile
@@ -32,9 +46,6 @@ services:
     restart: always
     ports:
       - 8080
-    networks:
-      - maxbet
-      
   dictionary-worker:
     build:
       dockerfile: DictionaryWorker/Dockerfile
@@ -52,9 +63,6 @@ services:
     depends_on:
       - rabbitmq-container
       - words-api
-    networks:
-      - maxbet
-      
   algo-sorter:
     build:
       dockerfile: AlgoSorter/Dockerfile
@@ -73,11 +81,7 @@ services:
     command: sh -c './wait-for db:3306 -- npm start'
     links:
       - db:db
-    networks:
-      - maxbet
 volumes:
   db:
-networks:
-  maxbet:
-    external:
-      name: maxbet
+  grafana-data:
+

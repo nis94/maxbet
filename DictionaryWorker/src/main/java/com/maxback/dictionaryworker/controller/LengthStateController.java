@@ -1,6 +1,5 @@
 package com.maxback.dictionaryworker.controller;
 
-import com.maxback.dictionaryworker.service.DictionaryService;
 import com.maxback.dictionaryworker.service.WordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

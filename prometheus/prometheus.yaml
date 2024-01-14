@@ -1,0 +1,26 @@
+global:
+  scrape_interval:     15s
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'words-api'
+    metrics_path: 'actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: ['words-api:8080']
+
+  - job_name: 'dictionary-worker'
+    metrics_path: 'actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: [ 'dictionary-worker:8081' ]
+
+  - job_name: 'algo-sorter'
+    metrics_path: 'actuator/prometheus'
+    scrape_interval: 2s
+    static_configs:
+      - targets: [ 'algo-sorter:8082' ]
+
