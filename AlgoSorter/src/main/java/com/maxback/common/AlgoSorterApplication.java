@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -36,7 +37,7 @@ public class AlgoSorterApplication {
         log.info("listing all words: ");
         List<WordPojo> wordFromDb = this.wordRepository.findAll();
         wordFromDb.stream()
-                .sorted((w1, w2) -> w2.getWord().compareTo(w1.getWord()))
+                .sorted(Comparator.comparing(WordPojo::getWord))
                 .forEach(w -> System.out.println(w.getWord() + " x " + w.getCounter()));
 
         log.info("initialize word length...");

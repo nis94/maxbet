@@ -21,7 +21,7 @@ public class WordsController {
     @GetMapping("/words/{length}")
     private String getRandomWord(@PathVariable int length) {
         String word = wordsService.getRandomWord(length);
-        log.info("generated the word: \"" + word + "\"");
+        log.debug("generated the word: \"" + word + "\"");
 
         return word;
     }
