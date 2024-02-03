@@ -25,7 +25,7 @@ public class LengthStateController {
     @PostMapping("/length/{length}")
     private int setLengthState(@PathVariable int length) {
         wordService.setLengthState(length);
-        log.info("wordService length state set to: " + wordService.getLengthState());
+        log.debug("wordService length state set to: " + wordService.getLengthState());
 
         return length;
     }

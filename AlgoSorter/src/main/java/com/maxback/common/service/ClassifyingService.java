@@ -22,24 +22,43 @@ public class ClassifyingService {
     public ClassifyingService(WordRepository wordRepository, RestTemplate restTemplate) {
         this.wordRepository = wordRepository;
         this.restTemplate = restTemplate;
-
     }
 
     public void analyzeWord(DictionaryWordData entry) {
         String newWord = entry.getWord();
         WordPojo wordFromDb = wordRepository.findByWord(newWord);
+
         if (wordFromDb != null) {
-            log.info("\""+ newWord + "\" already exist, updating counter");
-            wordRepository.save(new WordPojo(wordFromDb)); // TODO BUILDER
+            log.debug("\"" + newWord + "\" already exist, updating counter");
+            wordFromDb.setCounter(wordFromDb.getCounter() + 1);
+            wordRepository.save(wordFromDb);
         } else {
+            log.debug("Saving new word -> \"" + newWord + "\"");
             wordRepository.save(
                     new WordPojo(newWord, entry.getDefinition(), entry.getCreationDate())
             );
-            log.info("Saved new word -> \"" + newWord + "\"");
         }
+
         int newLength = newWord.length() + 1;
         restTemplate.postForEntity(dictApiUrl + "/" + newLength, null, String.class);
-        log.info("Sent new length to dictionary service: " + newLength);
+        log.debug("Dictionary service length set to : " + newLength);
+    }
+
+    public String buyWord(String word) {
+        WordPojo wordPojo = wordRepository.findByWord(word);
+        if(wordPojo!=null) {
+            if(wordPojo.getCounter() > 0) {
+                wordPojo.setCounter(wordPojo.getCounter() - 1);
+                wordRepository.save(wordPojo);
+                log.info("[" + word + "] Sold");
+            }else{
+                log.info("we are out of [" + word + "]");
+            }
+        }else{
+            log.debug("\"" + word + "\" not exist");
+        }
+
+        return word;
     }
 
 }

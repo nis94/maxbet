@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // TODO - WHAT IS THAT & WHY - "NONE" ?
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DictionaryWorkerApplicationTests {
 
     private RestTemplate restTemplate;
