@@ -4,6 +4,7 @@ import com.maxback.common.model.DictionaryWordData;
 import com.maxback.dictionaryworker.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -43,7 +44,6 @@ class DictionaryWorkerApplicationTests {
         //Assert
         Assertions.assertEquals(testWord, wordObj.getWord());
         Assertions.assertEquals("A challenge, trial.", wordObj.getDefinition());
-
     }
 
     @Test
@@ -61,7 +61,6 @@ class DictionaryWorkerApplicationTests {
 
         //Assert
         Assertions.assertNull(wordObj);
-
     }
 
     @Test
@@ -80,7 +79,6 @@ class DictionaryWorkerApplicationTests {
 
         //Assert
         Assertions.assertNull(wordObj);
-
     }
 
 }

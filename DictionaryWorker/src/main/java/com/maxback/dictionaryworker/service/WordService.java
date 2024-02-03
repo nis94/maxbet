@@ -16,7 +16,7 @@ public class WordService {
 
     @Getter
     @Setter
-    private int lengthState = 3;
+    private int lengthState = 1;
 
     public WordService(RestTemplate restTemplate, String wordsApiUrl) {
         this.restTemplate = restTemplate;

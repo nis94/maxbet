@@ -17,10 +17,3 @@ scrape_configs:
     scrape_interval: 2s
     static_configs:
       - targets: [ 'dictionary-worker:8081' ]
-
-  - job_name: 'algo-sorter'
-    metrics_path: 'actuator/prometheus'
-    scrape_interval: 2s
-    static_configs:
-      - targets: [ 'algo-sorter:8082' ]
-

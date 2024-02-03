@@ -61,7 +61,7 @@ services:
     environment:
       - words_api_url=http://words-api:8080/words
       - spring_rabbitmq_host=rabbitmq-container
-      - scheduled_fixed_rate=680
+      - scheduled_fixed_rate=660
     depends_on:
       - rabbitmq-container
       - words-api

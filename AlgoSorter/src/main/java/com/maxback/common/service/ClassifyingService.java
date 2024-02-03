@@ -30,7 +30,7 @@ public class ClassifyingService {
         WordPojo wordFromDb = wordRepository.findByWord(newWord);
         if (wordFromDb != null) {
             log.info("\""+ newWord + "\" already exist, updating counter");
-            wordRepository.save(new WordPojo(wordFromDb));
+            wordRepository.save(new WordPojo(wordFromDb)); // TODO BUILDER
         } else {
             wordRepository.save(
                     new WordPojo(newWord, entry.getDefinition(), entry.getCreationDate())
