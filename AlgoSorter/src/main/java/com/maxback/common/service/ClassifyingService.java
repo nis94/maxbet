@@ -52,7 +52,7 @@ public class ClassifyingService {
                 wordRepository.save(wordPojo);
                 log.info("[" + word + "] Sold");
             }else{
-                log.info("we are out of [" + word + "]");
+                log.debug("we are out of [" + word + "]");
             }
         }else{
             log.debug("\"" + word + "\" not exist");

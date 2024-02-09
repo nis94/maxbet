@@ -36,7 +36,7 @@ public class AlgoSorterApplication {
     }
 
     // second, minute, hour, day of month, month, day(s) of week
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void run() {
         log.debug("listing all words: ");
         List<WordPojo> wordFromDb = this.wordRepository.findAll();
