@@ -17,10 +17,7 @@
     <description>maxback app</description>
 
     <modules>
-        <module>WordsApi</module>
-        <module>DictionaryWorker</module>
-        <module>AlgoSorter</module>
-        <module>Common</module>
+        <module>WordsFactory</module>
     </modules>
 
 

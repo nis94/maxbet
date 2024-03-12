@@ -22,67 +22,36 @@ services:
       MYSQL_ROOT_PASSWORD: 111111
     volumes:
       - /var/lib/mysql
-  prometheus:
-    image: prom/prometheus:v2.37.9
-    container_name: prometheus
-    ports:
-      - 9090:9090
-    command: "--config.file=/etc/prometheus/prometheus.yaml"
-    volumes:
-      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
-      - ./prometheus:/prometheus
-    restart: unless-stopped
-  grafana:
-    image: grafana/grafana-oss:latest
-    container_name: grafana
-    ports:
-      - 3000:3000
-    volumes:
-      - grafana-data:/var/lib/grafana
-    restart: unless-stopped
+#  prometheus:
+#    image: prom/prometheus:v2.37.9
+#    container_name: prometheus
+#    ports:
+#      - 9090:9090
+#    command: "--config.file=/etc/prometheus/prometheus.yaml"
+#    volumes:
+#      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+#      - ./prometheus:/prometheus
+#    restart: unless-stopped
+#  grafana:
+#    image: grafana/grafana-oss:latest
+#    container_name: grafana
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - grafana-data:/var/lib/grafana
+#    restart: unless-stopped
 
   words-api:
     build:
-      dockerfile: WordsApi/Dockerfile
+      dockerfile: WordsFactory/Dockerfile
     image: words-api:latest
     restart: always
     ports:
       - 8080
-  dictionary-worker:
-    build:
-      dockerfile: DictionaryWorker/Dockerfile
-    image: dictionary-worker:latest
-    restart: always
-    deploy:
-      mode: replicated
-      replicas: 1
-    ports:
-      - 8081
-    environment:
-      - words_api_url=http://words-api:8080/words
-      - spring_rabbitmq_host=rabbitmq-container
-      - scheduled_fixed_rate=660
-    depends_on:
-      - rabbitmq-container
-      - words-api
-  algo-sorter:
-    build:
-      dockerfile: AlgoSorter/Dockerfile
-    image: algo-sorter:latest
-    restart: always
-    ports:
-      - 8082
     environment:
       - spring_rabbitmq_host=rabbitmq-container
-      - dictionary_api_url=http://dictionary-worker:8081/length
     depends_on:
       - rabbitmq-container
-      - words-api
-      - dictionary-worker
-      - db
-    command: sh -c './wait-for db:3306 -- npm start'
-    links:
-      - db:db
 volumes:
   db:
   grafana-data:
