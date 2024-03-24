@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 
-import static java.lang.Thread.sleep;
 
 @Service
 @Slf4j
@@ -32,11 +31,16 @@ public class DictionaryService {
     public DictionaryWordData getDictionaryWordData(StorageJob job) {
         String definition = getWordDefinition(job);
 
-        if(definition.isEmpty()){
+        if (definition.isEmpty()) {
             jobsRepository.save(new StorageJob(job.getJobId(), "NOT-FOUND", job.getStartTime(), job.getPayload()));
             return null;
-        }else {
-            jobsRepository.save(new StorageJob(job.getJobId(), "DONE", job.getStartTime(), job.getPayload()));
+        } else {
+            if (job.getPayload().equals(("test"))) { //TODO - remove after test
+                jobsRepository.save(new StorageJob(job.getJobId(), "PENDING", job.getStartTime(), job.getPayload()));
+            }
+            else {
+                jobsRepository.save(new StorageJob(job.getJobId(), "DONE", job.getStartTime(), job.getPayload()));
+            }
             return new DictionaryWordData(job.getPayload(), definition, Instant.now().toEpochMilli());
         }
     }

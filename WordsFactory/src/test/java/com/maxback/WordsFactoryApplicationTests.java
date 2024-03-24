@@ -1,7 +1,9 @@
 package com.maxback;
 
+import com.maxback.container.AbstractWordsFactoryTestContainers;
+import com.maxback.repository.JobsRepository;
+import com.maxback.repository.WordsRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,12 +11,23 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
-@Disabled
+import java.util.concurrent.TimeUnit;
+
+import static org.testcontainers.shaded.org.awaitility.Awaitility.waitAtMost;
+import static org.testcontainers.shaded.org.awaitility.pollinterval.FibonacciPollInterval.fibonacci;
+
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class WordsFactoryApplicationTests {
+class WordsFactoryApplicationTests extends AbstractWordsFactoryTestContainers {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private WordsRepository wordsRepository;
+
+    @Autowired
+    private JobsRepository jobsRepository;
 
     @LocalServerPort
     private int port;
@@ -24,33 +37,16 @@ class WordsFactoryApplicationTests {
     public void whenCallingRandomWordEndPoint_thenSave() {
 
         ResponseEntity<String> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/words/100", String.class);
+                restTemplate.getForEntity("http://localhost:" + port + "/qa/test", String.class);
 
-        String word = response.getBody();
-        assert (word != null);
-        Assertions.assertEquals(100, word.length());
-    }
-
-    @Test
-    public void whenCallingExistingWordEndPoint_thenSave() {
-
-        ResponseEntity<String> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/words/100", String.class);
-
-        String word = response.getBody();
-        assert (word != null);
-        Assertions.assertEquals(100, word.length());
-    }
-
-    @Test
-    public void whenWordNotExist_thenDontSave() {
-
-        ResponseEntity<String> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/words/100", String.class);
-
-        String word = response.getBody();
-        assert (word != null);
-        Assertions.assertEquals(100, word.length());
+        waitAtMost(10, TimeUnit.SECONDS)
+                .with().pollInterval(fibonacci(TimeUnit.SECONDS)).await()
+                .untilAsserted(
+                        () -> {
+                            Assertions.assertTrue(response.getStatusCode().is2xxSuccessful());
+                            Assertions.assertEquals(1, jobsRepository.findAll().size());
+                            Assertions.assertEquals(1, wordsRepository.findAll().size());
+                        });
     }
 
 
